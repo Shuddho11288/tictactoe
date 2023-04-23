@@ -48,6 +48,8 @@ class AIChoice:
             if '-' in row:
 
                 self.choices.append([rowi,row.index('-')])
+
+        print(self.ultimatechoice)
         
 
     def getChoices(self):
@@ -69,12 +71,18 @@ class AIChoice:
             rowi += 1
 
             if row.count('-') == 1:
+
+                print('row check')
             
                 if row.count(self.userSymbol)  == 2:
 
                     self.isDefendNeeded == True
 
                     self.ultimatechoice = [[rowi, row.index('-')]]
+
+                elif row.count(self.userSymbol) == 1:
+
+                    pass
 
                 else:
 
@@ -91,12 +99,22 @@ class AIChoice:
             choices = [self.board[0][coli], self.board[1][coli], self.board[2][coli]]
 
             if choices.count('-') == 1:
+
+                print('col check')
+
+                print(coli)
+
+                print(choices)
             
                 if choices.count(self.userSymbol)  == 2:
 
                     self.isDefendNeeded == True
 
                     self.ultimatechoice = [[choices.index('-'), coli]]
+
+                elif choices.count(self.userSymbol) == 1:
+
+                    pass
 
                 else:
 
@@ -118,14 +136,24 @@ class AIChoice:
         choices = allChoices[0]
 
         if choices.count('-') == 1:
+
+            print('diag check')
         
             if choices.count(self.userSymbol)  == 2:
+
+                print('diag check')
 
                 self.isDefendNeeded == True
 
                 self.ultimatechoice = [[choices.index('-'), choices.index('-')]]
 
+            elif choices.count(self.userSymbol) == 1:
+
+                pass
+
             else:
+
+                print('diag check')
 
                 self.isFinalAttackReady == True
 
@@ -136,12 +164,18 @@ class AIChoice:
         choices = allChoices[1]
 
         if choices.count('-') == 1:
+
+            print('diag check')
         
             if choices.count(self.userSymbol)  == 2:
 
                 self.isDefendNeeded == True
 
                 self.ultimatechoice = [[choices.index('-'), 2-choices.index('-')]]
+
+            elif choices.count(self.userSymbol) == 1:
+
+                pass
 
             else:
 
@@ -197,6 +231,8 @@ class Board:
 
     def setAIInput(self):
 
+        print(self.board)
+
         aiInput  = AIInput(AIChoice(self.board, self.USER_SYMBOL))
 
         self.board[aiInput.get_row()][aiInput.get_column()] = self.AI_SYMBOL
@@ -205,56 +241,48 @@ class Board:
 
         board = self.board
 
-        # check rows
-
         for row in board:
 
-            if row.count('X') == 3:
+            if row.count(self.USER_SYMBOL) == 3:
 
                 return 1
             
-            elif row.count('O') == 3:
+            elif row.count(self.AI_SYMBOL) == 3:
 
                 return 2
-        
-        # check columns
 
         for col in range(3):
 
             if board[0][col] == board[1][col] == board[2][col]:
 
-                if board[0][col] == 'X':
+                if board[0][col] == self.USER_SYMBOL:
 
                     return 1
                 
-                elif board[0][col] == 'O':
+                elif board[0][col] == self.AI_SYMBOL:
 
                     return 2
-                
-        
-        # check diagonals
-
+  
         if board[0][0] == board[1][1] == board[2][2]:
 
-            if board[0][0] == 'X':
+            if board[0][0] == self.USER_SYMBOL:
 
                 return 1
             
-            elif board[0][0] == 'O':
+            elif board[0][0] == self.AI_SYMBOL:
 
                 return 2
             
         elif board[0][2] == board[1][1] == board[2][0]:
 
-            if board[0][2] == 'X':
+            if board[0][2] == self.USER_SYMBOL:
 
                 return 1
             
-            elif board[0][2] == 'O':
+            elif board[0][2] == self.AI_SYMBOL:
 
                 return 2
     
-        # no winner yet
         return None
 
     def show(self):
@@ -264,30 +292,33 @@ class Board:
             print(' '.join(x))
 
 
-b = Board()
 
-while True:
+if __name__ == '__main__':
 
-    b.show()
+    b = Board()
 
-    w = b.checkWin()
+    while True:
 
-    if w == 1:
+        b.show()
 
-        print('USER WINS')
+        w = b.checkWin()
 
-        break
+        if w == 1:
 
-    elif w == 2:
+            print('USER WINS')
 
-        print('AI WINS')
+            break
 
-        break
+        elif w == 2:
 
-    i = input('Enter your input:').split(' ')
+            print('AI WINS')
 
-    b.setUserInput(UserInput(int(i[0]), int(i[1])))    
+            break
 
-    b.setAIInput()
+        i = input('Enter your input:').split(' ')
+
+        b.setUserInput(UserInput(int(i[0]), int(i[1])))    
+
+        b.setAIInput()
 
     
