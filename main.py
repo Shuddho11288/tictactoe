@@ -49,7 +49,7 @@ class AIChoice:
 
                 self.choices.append([rowi,row.index('-')])
 
-        print(self.ultimatechoice)
+        #print(self.ultimatechoice)
         
 
     def getChoices(self):
@@ -72,7 +72,7 @@ class AIChoice:
 
             if row.count('-') == 1:
 
-                print('row check')
+                #print('row check')
             
                 if row.count(self.userSymbol)  == 2:
 
@@ -100,11 +100,11 @@ class AIChoice:
 
             if choices.count('-') == 1:
 
-                print('col check')
+                #print('col check')
 
-                print(coli)
+                #print(coli)
 
-                print(choices)
+                #print(choices)
             
                 if choices.count(self.userSymbol)  == 2:
 
@@ -137,11 +137,11 @@ class AIChoice:
 
         if choices.count('-') == 1:
 
-            print('diag check')
+            #print('diag check')
         
             if choices.count(self.userSymbol)  == 2:
 
-                print('diag check')
+                #print('diag check')
 
                 self.isDefendNeeded == True
 
@@ -153,7 +153,7 @@ class AIChoice:
 
             else:
 
-                print('diag check')
+                #print('diag check')
 
                 self.isFinalAttackReady == True
 
@@ -165,7 +165,7 @@ class AIChoice:
 
         if choices.count('-') == 1:
 
-            print('diag check')
+            #print('diag check')
         
             if choices.count(self.userSymbol)  == 2:
 
@@ -231,7 +231,7 @@ class Board:
 
     def setAIInput(self):
 
-        print(self.board)
+        #print(self.board)
 
         aiInput  = AIInput(AIChoice(self.board, self.USER_SYMBOL))
 
@@ -317,7 +317,7 @@ if __name__ == '__main__':
 
         i = input('Enter your input:').split(' ')
 
-        b.setUserInput(UserInput(int(i[0]), int(i[1])))    
+        b.setUserInput(UserInput(int(i[0])-1, int(i[1])-1))    
 
         b.setAIInput()
 
